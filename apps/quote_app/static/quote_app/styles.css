@@ -1,0 +1,21 @@
+.wrapper{
+    width: 960px;
+    display: inline-block;
+}
+
+.left{
+    width: 400px;
+    display: inline-block;
+    margin-right: 50px;
+    border: 1px solid black;
+    padding: 10px;
+    
+}
+
+.right{
+    width: 400px;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid black;
+    padding: 10px;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'quote_app/styles.css' %}" title="styles" charset="utf-8">
+</head>
+<body>
+
+    <div class="wrapper">
+    <!-- For loop so error messages show up when adding a quote   -->
+    {% if messages %}
+    {% for message in messages %}
+        <p>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+
+    <a href="/quotes/logout">Logout</a>
+
+    <h2>Welcome, {{request.session.name}}</h2>
+
+    <div class="left">
+    <h3>Quotable Quotes</h3>
+    {% for quote in allquotes %}
+    <p>{{quote.quoted_by}}: {{quote.quote_message}}</p>
+    <p>Posted by: <a href="/users/{{user.id}}">{{quote.posted_by.name}}</a></p>
+    <button><a href="/quotes/favorite/{{quote.id}}">Add to My List</a></button>
+    {% endfor %}
+    </div>
+
+
+    <div class="right">
+    <h3>Your Favorites</h3>
+    {% for quote in favoritequotes %}
+    <p>{{quote.quoted_by}}: {{quote.quote_message}}</p>
+    <p>Posted by: <a href="/users/{{user.id}}">{{quote.posted_by.name}}</a></p>
+    <button><a href="/quotes/remove/{{quote.id}}">Remove from My List</a></button>
+    {% endfor %}
+    </div>
+
+    <h4>Contribute a Quote:</h4>
+    <form action="/quotes/create" method="post">
+            {% csrf_token %}
+            <label for="quoted_by">Quoted By:</label>
+                <input type="text" name="quoted_by">
+                <br>
+            <label for="quote_message">Message:</label>
+            <textarea type="text" name="quote_message" cols="25" rows="5"></textarea>
+                <br>
+                <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
